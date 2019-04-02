@@ -23,6 +23,11 @@ import com.aval.oauth.dto.ResponseObject;
 import com.aval.oauth.service.TokenService;
 import com.aval.oauth.util.Codes;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * Clase de controlador Rest
  * 
@@ -31,6 +36,7 @@ import com.aval.oauth.util.Codes;
  */
 @RestController
 @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "Token System")
 public class TokenController {
 
 	/**
@@ -46,6 +52,9 @@ public class TokenController {
 	 * @return ResponseObject con cabecera http aceptada en caso que el token sea
 	 *         válido
 	 */
+	@ApiOperation(value = "Valida un token", response = ResponseEntity.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Token válido"),
+			@ApiResponse(code = 401, message = "Token inválido. No es autorizado") })
 	@GetMapping(value = "/validateToken")
 	public ResponseEntity<ResponseObject> validateToken(HttpServletRequest request) {
 		ResponseObject response = tokenService.validateToken(request);
