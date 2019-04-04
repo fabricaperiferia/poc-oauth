@@ -144,8 +144,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @return
 	 */
 	@Bean
-	public CorsFilter corsFilter() {
-		return new CorsFilter();
+	public SimpleCorsFilter corsFilter() {
+		return new SimpleCorsFilter();
 	}
 
 	/**

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CorsFilter implements Filter {
+public class SimpleCorsFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
