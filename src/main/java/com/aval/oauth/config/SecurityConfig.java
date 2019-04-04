@@ -9,9 +9,7 @@
  */
 package com.aval.oauth.config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +32,6 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import com.aval.oauth.service.AuthenticationService;
 
@@ -148,19 +145,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
-		List<String> listAllow = new ArrayList<>();
-		listAllow.add("/**");
-		listAllow.add("http://localhost:8100");
-		listAllow.add("http://172.168.10.52");
-		config.setAllowedOrigins(listAllow);
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
+		return new CorsFilter();
 	}
 
 	/**

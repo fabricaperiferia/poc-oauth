@@ -52,8 +52,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().anonymous().disable().authorizeRequests()
-				.antMatchers("/goal/{\\d+}", "/users/password/**").access("hasRole('USER')").and().exceptionHandling()
+		http.csrf().disable().anonymous().disable().authorizeRequests().antMatchers("/oauth/token")
+				.access("hasRole('USER')").and().exceptionHandling()
 				.accessDeniedHandler(new OAuth2AccessDeniedHandler()).and().httpBasic()
 				.authenticationEntryPoint(basicAuthenticationPoint).and().authorizeRequests().antMatchers("/none/**")
 				.authenticated();
