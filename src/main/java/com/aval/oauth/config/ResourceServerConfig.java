@@ -52,9 +52,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().anonymous().disable().authorizeRequests().antMatchers("/oauth/token")
-				.access("hasRole('USER')").and().exceptionHandling()
-				.accessDeniedHandler(new OAuth2AccessDeniedHandler()).and().httpBasic()
+		http.anonymous().disable().authorizeRequests().antMatchers("/oauth/token").access("hasRole('USER')").and()
+				.exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler()).and().httpBasic()
 				.authenticationEntryPoint(basicAuthenticationPoint).and().authorizeRequests().antMatchers("/none/**")
 				.authenticated();
 	}
