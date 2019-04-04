@@ -10,12 +10,12 @@
 package com.aval.oauth.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -31,6 +31,8 @@ import org.springframework.security.oauth2.provider.request.DefaultOAuth2Request
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -153,8 +155,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		List<String> listAllow = new ArrayList<>();
-		listAllow.add("*");
+		listAllow.add("/**");
 		listAllow.add("http://localhost:8100");
+		listAllow.add("http://172.16.20.85:8100");
 		config.setAllowedOrigins(listAllow);
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
@@ -165,6 +168,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll();
+		http.authorizeRequests().requestMatchers(CorsUtils::isPreFlightRequest).permitAll().anyRequest().authenticated()
+				.and().httpBasic();
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowCredentials(true);
+		configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Access-Control-Allow-Origin",
+				"Access-Control-Request-Method", "Access-Control-Request-Headers", "Origin", "Cache-Control",
+				"Content-Type", "Authorization"));
+		configuration.setAllowedMethods(Arrays.asList("DELETE", "GET", "POST", "PATCH", "PUT"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 }
