@@ -156,7 +156,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		listAllow.add("*");
 		listAllow.add("http://localhost:8100");
 		listAllow.add("http://172.16.15.71:8100");
-		listAllow.add("http://172.16.20.155:30144");
+		listAllow.add("http://172.168.10.52:30144");
 		config.setAllowedOrigins(listAllow);
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
