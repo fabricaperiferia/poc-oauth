@@ -1,4 +1,4 @@
-#prueba de dockerfile con springboot
+#imagen base
 FROM openjdk:8-jdk-alpine AS base
 WORKDIR /app
 EXPOSE 8080
