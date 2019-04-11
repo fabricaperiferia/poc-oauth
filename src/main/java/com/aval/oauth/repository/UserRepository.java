@@ -14,6 +14,7 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aval.oauth.model.User;
 
@@ -24,6 +25,7 @@ import com.aval.oauth.model.User;
  *
  */
 @Repository
+@Transactional(readOnly = true)
 public interface UserRepository extends MongoRepository<User, String> {
 	/**
 	 * Método de búsqueda de usuario por nombre de usuario

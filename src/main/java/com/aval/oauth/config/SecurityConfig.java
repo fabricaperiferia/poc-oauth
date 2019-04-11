@@ -141,7 +141,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * Bean para contexto de filtro CORS
 	 * 
-	 * @return
+	 * @return SimpleCorsFilter
 	 */
 	@Bean
 	public SimpleCorsFilter corsFilter() {
@@ -156,6 +156,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll();
 	}
 
+	/**
+	 * Bean de configuración CORS
+	 * 
+	 * @return CorsConfigurationSource
+	 */
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();

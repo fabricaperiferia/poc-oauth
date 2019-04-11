@@ -1,3 +1,12 @@
+/*
+ * @(#) SimpleCorsFilter.java
+ * Copyright (c) Periferia IT Group, Todos Los Derechos Reservados
+ * 
+ * Este software es confidencial y propiedad de Periferia IT Group. El uso y
+ * distribución está restringido a las actividades comerciales e internas de la
+ * compañía.
+ * 
+ */
 package com.aval.oauth.config;
 
 import java.io.IOException;
@@ -15,6 +24,12 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Clase de filtro personalizado para CORS
+ * 
+ * @author Andrés Motavita
+ *
+ */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter implements Filter {
