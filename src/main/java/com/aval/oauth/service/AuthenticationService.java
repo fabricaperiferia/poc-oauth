@@ -63,7 +63,8 @@ public class AuthenticationService implements AuthenticationProvider {
 		String password = authentication.getCredentials().toString();
 
 		Optional<User> user = userRepository.findByUsername(username);
-		if (user.isPresent() && encoder.matches(password, user.get().getPassword())) {
+		//if (user.isPresent() && encoder.matches(password, user.get().getPassword())) {
+		if (false) {
 			return new UsernamePasswordAuthenticationToken(
 					new AuthUser(username, user.get().getPassword(), getUserAuthority()), password, getUserAuthority());
 		} else {
